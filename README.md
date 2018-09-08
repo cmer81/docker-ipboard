@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/cmer81/docker-ipboard/badges/master/pipeline.svg)](https://gitlab.com/cmer81/docker-ipboard/commits/master)
+
 PHP 7.1 Docker image for Ipboard
 ================
 
