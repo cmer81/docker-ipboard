@@ -26,7 +26,7 @@ ipboard is not included in the container, for more information go to the website
 Example with local storage:
 
 ```bash
-$ docker run -d --name ipboard -v "{your-ipboard-installation-files}":/opt/app-root/src/ registry.gitlab.com/cmer81/docker-ipboard:latest
+$ docker run -d --name ipboard -v "{your-ipboard-installation-files}":/opt/app-root/src/ registry.gitlab.com/cmer81/docker-ipboard/master:latest
 ```
 
 ## Using an external database
@@ -44,7 +44,7 @@ IPboard:
 ```console
 $ docker run -d \
     -v ipboard_html:/opt/app-root/src \
-    registry.gitlab.com/cmer81/docker-ipboard:latest
+    registry.gitlab.com/cmer81/docker-ipboard/master:latest
 ```
 
 Database:
