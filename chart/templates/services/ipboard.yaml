@@ -20,9 +20,6 @@ spec:
     - name: http
       port: 80
       targetPort: container
-      {{- if (and (eq .Values.service.ipboard.type "ClusterIP") (not (empty .Values.service.ipboard.ClusterIP.http))) }}
-      ClusterIP: {{ .Values.service.ipboard.ClusterIP.http }}
-      {{- end }}
   selector:
     app: {{ template "ipboard.name" . }}-ipboard
     release: {{ .Release.Name }}
