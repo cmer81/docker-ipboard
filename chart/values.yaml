@@ -13,9 +13,9 @@ config:
 
 service:
   ipboard:
-    type: clusterIP
+    type: ClusterIP
     externalTrafficPolicy: Cluster
-    clusterIP:
+    ClusterIP:
       http: '80'
 
 ingress:

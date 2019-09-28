@@ -12,7 +12,7 @@ spec:
   type: ClusterIP
   {{- else }}
   type: {{ .Values.service.ipboard.type }}
-  {{- if (or (eq .Values.service.ipboard.type "LoadBalancer") (eq .Values.service.ipboard.type "clusterIP")) }}
+  {{- if (or (eq .Values.service.ipboard.type "LoadBalancer") (eq .Values.service.ipboard.type "ClusterIP")) }}
   externalTrafficPolicy: {{ .Values.service.ipboard.externalTrafficPolicy }}
   {{- end }}
   {{- end }}
@@ -20,8 +20,8 @@ spec:
     - name: http
       port: 80
       targetPort: container
-      {{- if (and (eq .Values.service.ipboard.type "clusterIP") (not (empty .Values.service.ipboard.clusterIP.http))) }}
-      clusterIP: {{ .Values.service.ipboard.clusterIP.http }}
+      {{- if (and (eq .Values.service.ipboard.type "ClusterIP") (not (empty .Values.service.ipboard.ClusterIP.http))) }}
+      ClusterIP: {{ .Values.service.ipboard.ClusterIP.http }}
       {{- end }}
   selector:
     app: {{ template "ipboard.name" . }}-ipboard
