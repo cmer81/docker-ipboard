@@ -21,8 +21,8 @@ service:
 ingress:
   ipboard:
     certificate: ''
-    enabled: false
-    hostname: ''
+    enabled: true
+    hostname: 'test02.k8s.cmer.fr'
     path: /
     tls: false
     issuer:
