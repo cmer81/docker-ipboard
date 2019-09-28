@@ -1,0 +1,35 @@
+{{- if .Values.ingress.ipboard.enabled }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "ipboard.fullname" . }}-ipboard
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    {{- if .Values.ingress.ipboard.tls }}
+    {{- if (empty .Values.ingress.ipboard.certificate) }}
+    certmanager.k8s.io/cluster-issuer: {{ .Values.ingress.ipboard.issuer.name }}
+    kubernetes.io/tls-acme: 'true'
+    {{- end }}
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    {{- end }}
+  labels:
+    app: {{ template "ipboard.name" . }}-ipboard
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.ipboard.hostname }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.ipboard.path }}
+            backend:
+              serviceName: {{ template "ipboard.fullname" . }}-ipboard
+              servicePort: http
+  {{- if .Values.ingress.ipboard.tls }}
+  tls:
+    - secretName: {{ template "ipboard.ipboard-certificate" . }}
+      hosts:
+        - {{ .Values.ingress.ipboard.hostname }}
+  {{- end }}
+{{- end }}
