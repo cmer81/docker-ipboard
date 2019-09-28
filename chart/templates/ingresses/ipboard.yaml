@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: {{ template "ipboard.fullname" . }}-ipboard
   annotations:
-    kubernetes.io/ingress.class: nginx
+#    kubernetes.io/ingress.class: nginx
     {{- if .Values.ingress.ipboard.tls }}
     {{- if (empty .Values.ingress.ipboard.certificate) }}
     certmanager.k8s.io/cluster-issuer: {{ .Values.ingress.ipboard.issuer.name }}

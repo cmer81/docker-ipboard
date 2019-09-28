@@ -13,7 +13,7 @@ ENV WEB_DOCUMENT_ROOT=/app \
 ENV WEB_PHP_SOCKET=127.0.0.1:9000
 
 COPY conf/ /opt/docker/
-COPY index.html /app
+
 
 RUN set -x \
     # Install nginx
@@ -21,5 +21,7 @@ RUN set -x \
         nginx \
     && docker-run-bootstrap \
     && docker-image-cleanup
+
+COPY index.html /app
 
 EXPOSE 80 443
