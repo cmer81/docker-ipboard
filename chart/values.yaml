@@ -1,7 +1,7 @@
 images:
   ipboard:
     repository: registry.cmer.fr/le-monde-des-reptiles/docker-ipboard/dev
-    tag: 5040813f8c0ea58c0af20e5c21644d67699039b5
+    tag: 56ec996ab1a61c106dc900d460f5c0edeb634a33
 
 config:
   imagePullPolicy: IfNotPresent
