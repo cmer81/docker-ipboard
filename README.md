@@ -1,4 +1,4 @@
-PHP 7.3 Docker Nginx image for Ipboard
+PHP 7.3 Docker Nginx image for Ipboard with php 7.3
 ================
 
 This container image includes PHP 7.3 and alpine 3.10.
