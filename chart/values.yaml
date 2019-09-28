@@ -21,7 +21,7 @@ service:
 ingress:
   ipboard:
     certificate: ''
-    enabled: true
+    enabled: false
     hostname: ''
     path: /
     tls: false
