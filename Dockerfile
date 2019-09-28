@@ -13,7 +13,7 @@ ENV WEB_DOCUMENT_ROOT=/app \
 ENV WEB_PHP_SOCKET=127.0.0.1:9000
 
 COPY conf/ /opt/docker/
-ADD index.html /app/
+COPY index.html /app
 
 RUN set -x \
     # Install nginx
