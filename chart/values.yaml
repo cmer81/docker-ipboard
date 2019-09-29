@@ -1,0 +1,50 @@
+images:
+  ipboard:
+    repository: registry.cmer.fr/le-monde-des-reptiles/docker-ipboard/dev
+    tag: 56ec996ab1a61c106dc900d460f5c0edeb634a33
+
+config:
+  imagePullPolicy: IfNotPresent
+  updateStrategy: RollingUpdate
+  containerPort: "80"
+  ipboard:
+    baseUrl: ''
+    hostname: ''
+
+service:
+  ipboard:
+    type: ClusterIP
+    externalTrafficPolicy: Cluster
+    ClusterIP:
+      http: '80'
+
+ingress:
+  ipboard:
+    certificate: ''
+    enabled: true
+    hostname: 'test02.k8s.cmer.fr'
+    path: /
+    tls: false
+    issuer:
+      name: letsencrypt-staging
+
+persistence:
+  accessMode: ReadWriteOnce
+  enabled: false
+  existingClaim: ''
+  size: 5Gi
+  storageClass: ''
+
+probes:
+  liveness:
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readiness:
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1

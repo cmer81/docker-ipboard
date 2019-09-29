@@ -1,0 +1,48 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "ipboard.fullname" . }}-ipboard
+  labels:
+    app: {{ template "ipboard.name" . }}-ipboard
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: {{ .Values.config.updateStrategy }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "ipboard.name" . }}-ipboard
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ template "ipboard.fullname" . }}-ipboard
+          image: {{ .Values.images.ipboard.repository }}:{{ .Values.images.ipboard.tag }}
+          imagePullPolicy: {{ .Values.config.imagePullPolicy }}
+          ports:
+            - name: container
+              containerPort: {{ .Values.config.containerPort }}
+          volumeMounts:
+            - name: ipboard-data
+              mountPath: '/app'
+          env: []
+          livenessProbe:
+            httpGet:
+              path: /
+              port: container
+{{ toYaml .Values.probes.liveness | indent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: container
+{{ toYaml .Values.probes.readiness | indent 12 }}
+      volumes:
+        - name: ipboard-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "ipboard.fullname" . ) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "ipboard.fullname" . }}-ipboard
+  labels:
+    app: {{ template "ipboard.name" . }}-ipboard
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  {{- if .Values.ingress.ipboard.enabled }}
+  type: ClusterIP
+  {{- else }}
+  type: {{ .Values.service.ipboard.type }}
+  {{- if (or (eq .Values.service.ipboard.type "LoadBalancer") (eq .Values.service.ipboard.type "ClusterIP")) }}
+  externalTrafficPolicy: {{ .Values.service.ipboard.externalTrafficPolicy }}
+  {{- end }}
+  {{- end }}
+  ports:
+    - name: http
+      port: 80
+      targetPort: container
+  selector:
+    app: {{ template "ipboard.name" . }}-ipboard
+    release: {{ .Release.Name }}
