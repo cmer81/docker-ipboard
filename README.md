@@ -17,7 +17,7 @@ ipboard is not included in the container, for more information go to the website
 Example with local storage:
 
 ```bash
-$ docker run -d --name ipboard -v "{your-ipboard-installation-files}":/app cmer81/ipboard:latest
+$ docker run -d --name ipboard -v "{your-ipboard-installation-files}":/app -e WEB_ALIAS_DOMAIN=mydomain.com cmer81/ipboard:latest
 ```
 
 ## Using an external database
