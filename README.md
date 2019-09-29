@@ -1,7 +1,7 @@
 PHP 7.3 Docker Nginx image for Ipboard with php 7.3
 ================
 
-This container image includes PHP 7.3 and alpine 3.10.
+This container image includes PHP 7.3 and alpine 3.10 for Invision Community
 
 Description
 -----------
@@ -9,7 +9,7 @@ Description
 PHP 7.3 available as container is a base platform for
 building and running various PHP 7.3 applications and frameworks.
 
-ipboard is not included in the container, for more information go to the website for download files [Invision Community](https://invisioncommunity.com/).
+ipboard Invision Community is not included in the container, for more information go to the website for download files [Invision Community](https://invisioncommunity.com/).
 
 ## Usage
 ---------------------
@@ -56,7 +56,7 @@ docker build --pull -t "ipboard" .
 
 **Accessing the application:**
 ```
-$ curl 127.0.0.1:8080
+$ curl 127.0.0.1
 ```
 
 ## Environment variables
