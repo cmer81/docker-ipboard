@@ -1,0 +1,12 @@
+name: ipboard
+home: https://github.com/cmer81/docker-ipboard
+icon: 
+version: 0.0.1
+appVersion: latest
+description: 'Helm Template For Invision Community'
+keywords:
+  - ipboard
+sources:
+  - https://github.com/cmer81/docker-ipboard
+maintainers:
+  - name: 'cmer'

@@ -72,6 +72,9 @@ Variable              | Description
 `WEB_DOCUMENT_ROOT`   | Document root for Nginx
 `WEB_DOCUMENT_INDEX`  | Document index (eg. `index.php`) for Nginx
 `WEB_ALIAS_DOMAIN`    | Alias domains (eg. `*.vm`) for Nginx
+`CLI_SCRIPT`        | Predefined CLI script for service
+`APPLICATION_UID`   | PHP-FPM UID (Effective user ID)
+`APPLICATION_GID`   | PHP-FPM GID (Effective group ID)
 
 ## Filesystem layout
 
@@ -90,3 +93,5 @@ File                                                | Description
 `/opt/docker/etc/nginx/vhost.ssl.conf`              | Default ssl configuration for vhost
 `/opt/docker/etc/php/fpm/php-fpm.conf`              | PHP FPM daemon configuration
 `/opt/docker/etc/php/fpm/pool.d/application.conf`   | PHP FPM pool configuration
+`/opt/docker/etc/php/fpm/php-fpm.conf`                 | FPM daemon configuration
+`/opt/docker/etc/php/fpm/pool.d/application.conf`      | FPM pool configuration
