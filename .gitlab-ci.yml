@@ -3,6 +3,9 @@ build-master:
   # Official docker image.
   image: docker:latest
   stage: build
+  tags:
+    - synology
+    - docker
   services:
     - docker:dind
   before_script:
