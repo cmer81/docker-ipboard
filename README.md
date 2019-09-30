@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 # Docker Nginx image for Ipboard Invision Community 
-=======
+========================================================
 
 This container image includes PHP 7.3 and [Nginx](https://www.nginx.com/) for Invision Community
 
