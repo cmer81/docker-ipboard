@@ -1,8 +1,8 @@
 # Docker Nginx image for Ipboard Invision Community 
 ========================================================
 
-[alt text](https://dne4i5cb88590.cloudfront.net/invisionpower-com/monthly_2019_09/og.jpg.5e6c57e8dfa140ce4ac18f1e757d3b45.jpg)
 
+![Ipboard](https://dne4i5cb88590.cloudfront.net/invisionpower-com/monthly_2019_09/og.jpg.5e6c57e8dfa140ce4ac18f1e757d3b45.jpg)
 
 This container image includes PHP 7.3 and [Nginx](https://www.nginx.com/) for Invision Community
 
