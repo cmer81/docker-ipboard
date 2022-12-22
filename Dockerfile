@@ -1,17 +1,18 @@
-FROM registry.cmer.fr/le-monde-des-reptiles/bootstrap/base-app-alpine:latest
+FROM webdevops/php-nginx:8.1-alpine
 
 ENV WEB_DOCUMENT_ROOT=/app \
     WEB_DOCUMENT_INDEX=index.php \
     WEB_ALIAS_DOMAIN=*.vm \
     WEB_PHP_TIMEOUT=600 \
     WEB_PHP_SOCKET=""
-ENV WEB_PHP_SOCKET=127.0.0.1:9000
+ENV WEB_PHP_SOCKET="127.0.0.1:9000"
+ENV SERVICE_NGINX_CLIENT_MAX_BODY_SIZE="50m"
 
 COPY conf/ /opt/docker/
 
-
 RUN set -x \
-    && apk-install \
+    && apk update \
+    && apk add \
         imagemagick \
         graphicsmagick \
         ghostscript \
@@ -21,60 +22,57 @@ RUN set -x \
         optipng \
         pngquant \
         # Install php (cli/fpm)
-        php7-fpm \
-        php7-json \
-        php7-intl \
-        php7-curl \
-        php7-mysqli \
-        php7-mysqlnd \
-        php7-pdo_mysql \
-        php7-pdo_pgsql \
-        php7-pdo_sqlite \
-        php7-mcrypt \
-        php7-gd \
-        php7-imagick \
-        php7-imap \
-        php7-bcmath \
-        php7-soap \
-        php7-sqlite3 \
-        php7-bz2 \
-        php7-calendar \
-        php7-ctype \
-        php7-pcntl \
-        php7-pgsql \
-        php7-posix \
-        php7-sockets \
-        php7-sysvmsg \
-        php7-sysvsem \
-        php7-sysvshm \
-        php7-xmlreader \
-        php7-exif \
-        php7-ftp \
-        php7-gettext \
-        php7-iconv \
-        php7-zip \
-        php7-zlib \
-        php7-shmop \
-        php7-wddx \
+        php81-fpm \
+        php81-json \
+        php81-intl \
+        php81-curl \
+        php81-mysqli \
+        php81-mysqlnd \
+        php81-pdo_mysql \
+        php81-pdo_pgsql \
+        php81-pdo_sqlite \
+        php81-gd \
+        php81-pecl-imagick \
+        php81-imap \
+        php81-bcmath \
+        php81-soap \
+        php81-sqlite3 \
+        php81-bz2 \
+        php81-calendar \
+        php81-ctype \
+        php81-pcntl \
+        php81-pgsql \
+        php81-posix \
+        php81-sockets \
+        php81-sysvmsg \
+        php81-sysvsem \
+        php81-sysvshm \
+        php81-xmlreader \
+        php81-exif \
+        php81-ftp \
+        php81-gettext \
+        php81-iconv \
+        php81-zip \
+        php81-zlib \
+        php81-shmop \
         sqlite \
-        php7-xmlrpc \
-        php7-xsl \
+        php81-xsl \
         geoip \
-        # php7-ldap \
-        php7-pecl-memcached \
-        # php7-redis \
-        php7-pear \
-        php7-phar \
-        php7-openssl \
-        php7-session \
-        php7-opcache \
-        php7-mbstring \
-        php7-iconv \
-        php7-apcu \
-        php7-fileinfo \
-        php7-simplexml \
-        php7-tokenizer \
-        php7-xmlwriter \
+        # php81-ldap \
+        php81-pecl-memcached \
+        # php81-redis \
+        php81-pear \
+        php81-phar \
+        php81-openssl \
+        php81-session \
+        php81-opcache \
+        php81-mbstring \
+        php81-iconv \
+        php81-pecl-apcu \
+        php81-fileinfo \
+        php81-simplexml \
+        php81-tokenizer \
+        php81-xmlwriter \
         nginx \
     && ln -s /usr/sbin/php-fpm7 /usr/sbin/php-fpm \
     && pecl channel-update pecl.php.net \
