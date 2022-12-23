@@ -48,7 +48,6 @@ RUN set -x \
     && apk add nginx \
     && chmod +s /sbin/gosu \
     && generate-dockerimage-info \
-    && docker-run-bootstrap \
     && docker-image-cleanup
 
 RUN set -x \
@@ -63,7 +62,6 @@ RUN set -x \
         tzdata \
         busybox-suid \
     && chmod +s /sbin/gosu \
-    && docker-run-bootstrap \
     && docker-image-cleanup
 
 RUN set -x \
@@ -79,7 +77,6 @@ RUN set -x \
         rsync \
         patch \
         git \
-    && docker-run-bootstrap \
     && docker-image-cleanup
 
 RUN set -x \
@@ -131,17 +128,6 @@ RUN set -x \
         libzip-dev \
         libmemcached-dev \
         yaml-dev \
-    # Install guetzli
-    && wget https://github.com/google/guetzli/archive/master.zip \
-    && unzip master.zip \
-    && make -C guetzli-master \
-    && cp guetzli-master/bin/Release/guetzli /usr/local/bin/ \
-    && rm -rf master.zip guetzli-master \
-    # https://github.com/docker-library/php/issues/240
-    && apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted \
-    # Install new version of ICU
-    && curl -sS -o /tmp/icu.tar.gz -L https://github.com/unicode-org/icu/releases/download/release-66-1/icu4c-66_1-src.tgz \
-    && tar -zxf /tmp/icu.tar.gz -C /tmp && cd /tmp/icu/source && ./configure --prefix=/usr/local && make && make install && cd / && rm -rf /tmp/icu* \
     # Install extensions
     && PKG_CONFIG_PATH=/usr/local docker-php-ext-configure intl \
     && docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp \
@@ -178,27 +164,15 @@ RUN set -x \
         gd \
         gettext \
         opcache \
-    # Install extensions for PHP 7.x
-    # Memcached for 7.3 can currently only be built from master
-    && MEMCACHED="`mktemp -d`" \
-    && curl -skL https://github.com/php-memcached-dev/php-memcached/archive/master.tar.gz | tar zxf - --strip-components 1 -C $MEMCACHED \
-    && docker-php-ext-configure $MEMCACHED \
-    && docker-php-ext-install $MEMCACHED \
-    && rm -rf $MEMCACHED \
+    # Install extensions
     && pecl install apcu \
-    && pecl install vips \
     && pecl install yaml \
     && pecl install redis \
-    && pecl install mongodb \
-    && pecl install xmlrpc-1.0.0RC3 \
     && docker-php-ext-enable \
         apcu \
-        vips \
         yaml \
         redis \
-        xmlrpc \
         imagick \
-        mongodb \
     # Uninstall dev and header packages
     && apk del -f --purge \
         autoconf \
@@ -228,13 +202,13 @@ RUN set -x \
         libmemcached-dev \
         yaml-dev \
     && rm -f /usr/local/etc/php-fpm.d/zz-docker.conf \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer2 \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer1 --1 \
-    && ln -sf /usr/local/bin/composer2 /usr/local/bin/composer \
-    # Enable php services
+    # && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer2 \
+    # && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer1 --1 \
+    # && ln -sf /usr/local/bin/composer2 /usr/local/bin/composer \
+    # Enable services
+    && docker-run-bootstrap \
     && docker-service enable syslog \
     && docker-service enable cron \
-    && docker-run-bootstrap \
     && docker-image-cleanup
 
 
