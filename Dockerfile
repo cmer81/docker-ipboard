@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine
+FROM php:8.3-fpm-alpine
 
 ENV WEB_DOCUMENT_ROOT=/app \
     WEB_DOCUMENT_INDEX=index.php \
@@ -27,7 +27,7 @@ COPY conf/ /opt/docker/
 RUN set -x \
     # Init bootstrap
     # Add community
-    && echo https://dl-4.alpinelinux.org/alpine/v3.17/community/ >> /etc/apk/repositories \
+    && echo https://dl-4.alpinelinux.org/alpine/v3.20/community/ >> /etc/apk/repositories \
     # System update
     && /usr/local/bin/apk-upgrade \
     # Install base stuff
@@ -47,8 +47,8 @@ RUN set -x \
     && apk-install \
     && apk add nginx \
     && chmod +s /sbin/gosu \
-    && generate-dockerimage-info \
-    && docker-image-cleanup
+    && generate-dockerimage-info
+    
 
 RUN set -x \
     # Install services
@@ -61,8 +61,8 @@ RUN set -x \
         sed \
         tzdata \
         busybox-suid \
-    && chmod +s /sbin/gosu \
-    && docker-image-cleanup
+    && chmod +s /sbin/gosu
+    
 
 RUN set -x \
     && apk-install shadow \
@@ -76,8 +76,8 @@ RUN set -x \
         openssh-client \
         rsync \
         patch \
-        git \
-    && docker-image-cleanup
+        git
+    
 
 RUN set -x \
     # Install php environment
@@ -132,7 +132,7 @@ RUN set -x \
     && PKG_CONFIG_PATH=/usr/local docker-php-ext-configure intl \
     && docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp \
     && git clone --branch master --depth 1 https://github.com/Imagick/imagick.git /usr/src/php/ext/imagick \
-    && git clone --branch master --depth 1 https://github.com/php-amqp/php-amqp.git /usr/src/php/ext/amqp \
+    && git clone --branch latest --depth 1 https://github.com/php-amqp/php-amqp.git /usr/src/php/ext/amqp \
     && cd /usr/src/php/ext/amqp && git submodule update --init \
     && docker-php-ext-configure ldap \
     && PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
@@ -208,8 +208,8 @@ RUN set -x \
     # Enable services
     && docker-run-bootstrap \
     && docker-service enable syslog \
-    && docker-service enable cron \
-    && docker-image-cleanup
+    && docker-service enable cron
+    
 
 
 EXPOSE 80 443
