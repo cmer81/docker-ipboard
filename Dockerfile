@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.2-fpm-alpine
 
 ENV WEB_DOCUMENT_ROOT=/app \
     WEB_DOCUMENT_INDEX=index.php \
